@@ -60,7 +60,7 @@ void loop() {
       digitalWrite(ledPin, HIGH);
 
       //float a = f(millis() * .1, 0) * 180; NO DECLARAR VARIABLES EN UN SWITCH:CASE
-      servo.write(f(millis() * .1, danceCount % 3 ) * 180);
+      servo.write(f(millis() * .1, danceCount % 5 ) * 180);
          
       break;
     case HISTERIA:
@@ -79,7 +79,7 @@ void loop() {
 float f( float x, int id ) {
   x = radians(x);
   float y;
-  /*
+  
   switch(id){
     case 0:
       y = sin(x + cos(x * atan(x * 1.5))) * .5 + .5; // Waves
@@ -90,10 +90,16 @@ float f( float x, int id ) {
     case 2:
       y = atan(cos(x + max(cos(x* 2), sin(x * 2.2)))) * .5 + .5; // Indecisión
       break;  
-  }*/
+    case 3:
+      y = min(cos(round(sin(x*.5)*3)), sin(x*1.1)) * .5 + .5;
+      break;
+    case 4: 
+      y = min(max(abs(cos(x*2)), abs(sin(x*1.2))), cos(x*1.1 + sin(x))) *.5 + .5; // No se si me caso
+      break;
+  }
 
   // y = sin(x * cos(x * 1.1)) * .5 + .5; // Histeria (No loopeable)
-   y = sin(x + cos(x * atan(x * 1.5))) * .5 + .5; // Waves
+  // y = sin(x + cos(x * atan(x * 1.5))) * .5 + .5; // Waves
   // y = atan(max(cos(x* 2), sin(x * 2.15))) * .5 + .5; // Rebotecitos
   // y = atan(cos(x + max(cos(x* 2), sin(x * 2.2)))) * .5 + .5; // Indecisión
   
