@@ -20,10 +20,6 @@
 
 /* PINES  ******
    *********** */
-const int buttonPin = 2;
-const int ledPin =  13;
-const int servoPin = 11;
-// pantallita
 #define LCD_RS 8
 #define LCD_EN 9
 #define LCD_D4 4
@@ -31,13 +27,18 @@ const int servoPin = 11;
 #define LCD_D6 6
 #define LCD_D7 7
 
+const int buttonPin = 2;
+const int ledPin =  13;
+const int servoPin = 11;
+
 /* TIEMPO ******
    *********** */
 const long histeriaDuration = 5000;
 
 /* CHARS ******
    ********** */
-const char errChars[] = "###ERROR0**xx1!!!";
+#define ERR_CHARS_CANT 16
+const char errChars[] = "###ERROR0**xx1!!";
 
 /*  VARIABLES **
  ************* */

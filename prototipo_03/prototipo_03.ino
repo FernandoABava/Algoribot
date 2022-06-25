@@ -1,4 +1,3 @@
-#include <LiquidCrystal.h>
 #include <Servo.h>
 
 #include "Globales.h";
@@ -8,6 +7,7 @@
 
 Servobo servobo;
 Lucecita luz;
+Pantallita pantallita;
 
 void setup() {
   Serial.begin(9600);
@@ -18,6 +18,7 @@ void setup() {
 
   servobo.attach();
   luz.initPin();
+  pantallita.initPin();
 }
 
 void loop() {
@@ -26,13 +27,21 @@ void loop() {
   
   // CONDICIONES
   if (buttonState == HIGH) {
-    if(estado == REPOSO || estado == HISTERIA) danceCount++;
-    estado = DANZA;
+    if(estado == REPOSO || estado == HISTERIA){ 
+      estado = DANZA;
+      danceCount++;
+      pantallita.entrarEnBaile();
+    }
   } else {
     if (millis() < millisOfHisteria) {
-      estado = HISTERIA;
+      if(estado == REPOSO || estado == DANZA){
+        estado = HISTERIA;
+      }
     } else {
-      estado = REPOSO;
+      if(estado == DANZA || estado == HISTERIA){
+        estado = REPOSO;
+        pantallita.entrarEnReposo();
+      }
     }
   }
 
@@ -41,16 +50,18 @@ void loop() {
     case REPOSO:
       luz.reposar();
       servobo.reposar();
+      pantallita.reposar();
       break;
     case DANZA:
       millisOfHisteria = millis() + histeriaDuration;
       luz.bailar();
       servobo.bailar();
-         
+      pantallita.bailar();
       break;
     case HISTERIA:
       servobo.gritar();
       luz.titilar();
+      pantallita.gritar();
       break;
     default: break;
   }

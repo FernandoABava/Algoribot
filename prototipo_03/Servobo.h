@@ -1,4 +1,4 @@
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <Servo.h>
 
 class Servobo {
@@ -11,7 +11,7 @@ class Servobo {
     const int amplitudGrito = 90;
 
     // Constantes Reposo
-    const int velReposo = 0.01;
+    const float velReposo = 0.0001;
 
     float angulo = 0;
 
