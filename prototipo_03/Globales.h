@@ -25,7 +25,7 @@ const int ledPin =  13;
 const int servoPin = 11;
 // pantallita
 #define LCD_RS 8
-#define LCD_EN 8
+#define LCD_EN 9
 #define LCD_D4 4
 #define LCD_D5 5
 #define LCD_D6 6
@@ -34,6 +34,10 @@ const int servoPin = 11;
 /* TIEMPO ******
    *********** */
 const long histeriaDuration = 5000;
+
+/* CHARS ******
+   ********** */
+const char errChars[] = "###ERROR0**xx1!!!";
 
 /*  VARIABLES **
  ************* */

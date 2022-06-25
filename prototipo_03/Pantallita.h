@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <LiquidCrystal.h>
 
 class Pantallita {
@@ -9,6 +10,7 @@ private:
   const int ritmoRapido = 200;
   long tiempo;
   int cursorx;
+  int randomChar;
   
 public:
   void initPin() {
@@ -61,6 +63,24 @@ public:
     }
   }
   
-  void gritar() {}
+  void gritar() {
+    if(millis() > tiempo){
+      tiempo += ritmoLento;
+      
+      lcd.setCursor(0,0);
+      for(int i=0; i<errChars.length(); i++){
+        randomChar = errChars[int(random(errChars.length()))];
+        lcd.print(randomChar);
+        lcd.setCursor(i,0);
+      }
+      
+      lcd.setCursor(0,1);
+      for(int i=0; i<errChars.length(); i++){
+        randomChar = errChars[int(random(errChars.length()))];
+        lcd.print(randomChar);
+        lcd.setCursor(i,0);
+      }
+    }
+  }
   // void cargar() {} TODO
 };

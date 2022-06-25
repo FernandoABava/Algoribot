@@ -1,8 +1,10 @@
+#include <LiquidCrystal.h>
 #include <Servo.h>
 
 #include "Globales.h";
 #include "Servobo.h"
 #include "Lucecitas.h"
+#include "Pantallita.h"
 
 Servobo servobo;
 Lucecita luz;
