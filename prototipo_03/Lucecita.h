@@ -24,4 +24,7 @@ class Lucecita {
   void bailar() {
     digitalWrite(ledPin, HIGH);
   }
+  void apagar() {
+    digitalWrite(ledPin, LOW);
+  }
 };

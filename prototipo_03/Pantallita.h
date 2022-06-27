@@ -1,4 +1,5 @@
 #include <LiquidCrystal.h>
+#include "emojis.h"
 
 LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 
@@ -8,7 +9,7 @@ class Pantallita {
 
     String formula[CANT_FORMS];
 
-    const int ritmoLento = 1000;
+    const int ritmoLento = 1500;
     const int ritmoRapido = 200;
     long tiempo;
     int cursorx;
@@ -25,6 +26,13 @@ class Pantallita {
       formula[4] = FORM_4;
 
       tiempo = ritmoLento;
+
+      lcd.createChar(0, musicaA);
+      lcd.createChar(1, musicaB);
+      lcd.createChar(2, bigSmile);
+      lcd.createChar(3, smiley);
+      lcd.createChar(4, chill);
+      lcd.createChar(5, neutralSmiley);
     }
 
     void entrarEnReposo() {
@@ -54,8 +62,20 @@ class Pantallita {
     }
     void bailar() {
       if (millis() > tiempo) {
-        lcd.setCursor(0, 1);
         tiempo += ritmoLento;
+
+        for (int i = 1; i < 15; i++){ 
+          if (random(100) < 95) continue;
+          lcd.setCursor(i, 0);
+          lcd.write(byte(int(random(0,2))));
+        }
+
+        lcd.setCursor(7, 0);
+        lcd.write(' ');
+        lcd.write(byte(int(random(2,6))));
+        lcd.write(' ');
+
+        lcd.setCursor(0, 1);
         String str = formula[danceCount % CANT_FORMS];
         for (int i = 0; i < 16; i++) {
           lcd.print( str[ (i + cursorx) % str.length() ] );
@@ -87,10 +107,15 @@ class Pantallita {
     
     void entrarEnCarga() {
       lcd.clear();
-      lcd.setCursor(0,0);
-      lcd.print("Cargando");
+      lcd.setCursor(8,0);
+      lcd.write(byte(5));
+      lcd.setCursor(0,1);
+      tiempo = millis() + cargaDuration/16;
     }
     void cargar() {
-      
+      if(millis() > tiempo){
+        tiempo += cargaDuration/24;
+        lcd.write('*');
+      }
     }
 };

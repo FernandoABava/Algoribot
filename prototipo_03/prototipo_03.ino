@@ -2,7 +2,7 @@
 
 #include "Globales.h";
 #include "Servobo.h"
-#include "Lucecitas.h"
+#include "Lucecita.h"
 #include "Pantallita.h"
 
 Servobo servobo;
@@ -42,6 +42,7 @@ void loop() {
     } else if(millis() > (triggerTime - muerteDuration) && estado == HISTERIA){
       estado = MUERTE;
       lcd.clear();
+      luz.apagar();
     } else if((millis() > triggerTime && estado == MUERTE) || estado == CARGA){
       estado = REPOSO;
       pantallita.entrarEnReposo();
@@ -57,7 +58,7 @@ void loop() {
       pantallita.reposar();
       break;
     case CARGA: 
-      
+      pantallita.cargar();
       break;
     case DANZA:
       triggerTime = millis() + histeriaDuration + muerteDuration;
