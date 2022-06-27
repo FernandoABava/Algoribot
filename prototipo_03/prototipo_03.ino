@@ -27,33 +27,40 @@ void loop() {
   
   // CONDICIONES
   if (buttonState == HIGH) {
-    if(estado == REPOSO || estado == HISTERIA){ 
+    if(estado == REPOSO){
+      estado = CARGA;
+      triggerTime = millis() + cargaDuration;
+      pantallita.entrarEnCarga();
+    } else if((millis() > triggerTime && estado == CARGA) || estado == HISTERIA || estado == MUERTE){ 
       estado = DANZA;
       danceCount++;
       pantallita.entrarEnBaile();
     }
   } else {
-    if (millis() < millisOfHisteria) {
-      if(estado == REPOSO || estado == DANZA){
-        estado = HISTERIA;
-      }
-    } else {
-      if(estado == DANZA || estado == HISTERIA){
-        estado = REPOSO;
-        pantallita.entrarEnReposo();
-      }
+    if (estado == DANZA) {      
+      estado = HISTERIA;
+    } else if(millis() > (triggerTime - muerteDuration) && estado == HISTERIA){
+      estado = MUERTE;
+      lcd.clear();
+    } else if((millis() > triggerTime && estado == MUERTE) || estado == CARGA){
+      estado = REPOSO;
+      pantallita.entrarEnReposo();
     }
   }
 
   // ESTADOS
   switch (estado) {
     case REPOSO:
+      // triggerTime = millis() + cargaDuration;
       luz.reposar();
       servobo.reposar();
       pantallita.reposar();
       break;
+    case CARGA: 
+      
+      break;
     case DANZA:
-      millisOfHisteria = millis() + histeriaDuration;
+      triggerTime = millis() + histeriaDuration + muerteDuration;
       luz.bailar();
       servobo.bailar();
       pantallita.bailar();
@@ -62,6 +69,8 @@ void loop() {
       servobo.gritar();
       luz.titilar();
       pantallita.gritar();
+      break;
+    case MUERTE: 
       break;
     default: break;
   }

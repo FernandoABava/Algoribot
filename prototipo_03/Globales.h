@@ -3,8 +3,10 @@
    *** ESTADOS ***
    *************** */
 #define REPOSO 0
-#define DANZA 1
-#define HISTERIA 2
+#define CARGA 1
+#define DANZA 2
+#define HISTERIA 3
+#define MUERTE 4
 
 /* ****************
    *** FORMULAS ***
@@ -33,7 +35,9 @@ const int servoPin = 11;
 
 /* TIEMPO ******
    *********** */
-const long histeriaDuration = 5000;
+const long histeriaDuration = 10000;
+const long cargaDuration = 1500;
+const long muerteDuration = 5000;
 
 /* CHARS ******
    ********** */
@@ -44,5 +48,5 @@ const char errChars[] = "###ERROR0**xx1!!";
  ************* */
 int estado = 0;
 int buttonState = 0;
-long millisOfHisteria = histeriaDuration;
+long triggerTime = 0;
 int danceCount = 0;

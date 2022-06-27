@@ -84,5 +84,13 @@ class Pantallita {
         lcd.setCursor(i, col);
       }
     }
-    // void cargar() {} TODO
+    
+    void entrarEnCarga() {
+      lcd.clear();
+      lcd.setCursor(0,0);
+      lcd.print("Cargando");
+    }
+    void cargar() {
+      
+    }
 };
